@@ -6,7 +6,11 @@ function isPromise(val) {
 
 export default function promiseMiddleware(next) {
   return action => {
-    if (!isFSA(action)) return action.then(next);
+    if (!isFSA(action)) {
+      return isPromise(action)
+        ? action.then(next)
+        : next(action);
+    }
 
     return isPromise(action.body)
       ? action.body.then(

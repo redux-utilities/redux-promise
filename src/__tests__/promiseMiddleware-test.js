@@ -49,4 +49,17 @@ describe('promiseMiddleware', () => {
 
     await expect(dispatch(Promise.reject(err))).to.eventually.be.rejectedWith(err);
   });
+
+  it('ignores non-promises', async () => {
+    dispatch(foobar);
+    expect(baseDispatch.calledOnce).to.be.true;
+    expect(baseDispatch.firstCall.args[0]).to.equal(foobar);
+
+    dispatch({ type: 'ACTION_TYPE', body: foobar });
+    expect(baseDispatch.calledTwice).to.be.true;
+    expect(baseDispatch.secondCall.args[0]).to.deep.equal({
+      type: 'ACTION_TYPE',
+      body: foobar
+    });
+  });
 });
