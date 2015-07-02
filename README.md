@@ -18,7 +18,7 @@ import promiseMiddleware from 'redux-promise';
 
 The default export is a middleware function. If it receives a promise, it will dispatch the resolved value of the promise. It will not dispatch anything if the promise rejects.
 
-If it receives an Flux Standard Action whose `body` is a promise, it will either
+If it receives an Flux Standard Action whose `payload` is a promise, it will either
 
 - dispatch a copy of the action with the resolved value of the promise, and set `status` to `success`.
 - dispatch a copy of the action with the rejected value of the promise, and set `status` to `error`.
