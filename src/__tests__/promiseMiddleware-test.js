@@ -19,25 +19,25 @@ describe('promiseMiddleware', () => {
   it('handles Flux standard actions', async () => {
     await dispatch({
       type: 'ACTION_TYPE',
-      body: Promise.resolve(foobar)
+      payload: Promise.resolve(foobar)
     });
 
     expect(baseDispatch.calledOnce).to.be.true;
     expect(baseDispatch.firstCall.args[0]).to.deep.equal({
       type: 'ACTION_TYPE',
-      body: foobar,
+      payload: foobar,
       status: 'success'
     });
 
     await dispatch({
       type: 'ACTION_TYPE',
-      body: Promise.reject(err)
+      payload: Promise.reject(err)
     }).catch(noop);
 
     expect(baseDispatch.calledTwice).to.be.true;
     expect(baseDispatch.secondCall.args[0]).to.deep.equal({
       type: 'ACTION_TYPE',
-      body: err,
+      payload: err,
       status: 'error'
     });
   });
@@ -55,11 +55,11 @@ describe('promiseMiddleware', () => {
     expect(baseDispatch.calledOnce).to.be.true;
     expect(baseDispatch.firstCall.args[0]).to.equal(foobar);
 
-    dispatch({ type: 'ACTION_TYPE', body: foobar });
+    dispatch({ type: 'ACTION_TYPE', payload: foobar });
     expect(baseDispatch.calledTwice).to.be.true;
     expect(baseDispatch.secondCall.args[0]).to.deep.equal({
       type: 'ACTION_TYPE',
-      body: foobar
+      payload: foobar
     });
   });
 });
