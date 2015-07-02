@@ -12,7 +12,7 @@ npm install --save redux-promise
 
 ## Usage
 
-```
+```js
 import promiseMiddleware from 'redux-promise';
 ```
 
