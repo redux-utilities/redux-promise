@@ -25,18 +25,35 @@ If it receives an Flux Standard Action whose `payload` is a promise, it will eit
 
 The middleware returns a promise to the caller so that it can wait for the operation to finish before continuing. This is especially useful for server-side rendering. If you find that a promise is not being returned, ensure that all middleware before it in the chain is also returning its `next()` call to the caller.
 
+## Using in combination with redux-actions
+
+Because it supports FSA actions, you can use redux-promise in combination with [redux-actions](https://github.com/acdlite/redux-actions).
+
 ## Example: Async action creators
 
-Because it supports FSA actions, you can use redux-promise in combination with [redux-actions](https://github.com/acdlite/redux-actions) to enable the use of async action creators, like in Flummox:
+This works just like in Flummox:
 
 ```js
 createAction('FETCH_THING', async id => {
-  const res = await api.fetchThing(id);
-  return res.body;
+  const result = await somePromise;
+  return result.someValue;
 });
 ```
 
 Unlike Flummox, it will not perform a dispatch at the beginning of the operation, only at the end. Use Redux's built-in [`thunkMiddleware`](https://github.com/gaearon/redux/blob/master/src/middleware/thunk.js) in combination with `redux-promise` to perform optimistic updates.
 
 
-## Example: Creating actions
+## Example: Integrating with a web API module
+
+Say you have an API module that sends requests to a server. This is a common pattern in Flux apps. Assuming your module supports promises, it's really easy to create action creators that wrap around your API:
+
+```js
+import { WebAPI } from '../utils/WebAPI';
+
+export const getThing = createAction('GET_THING', WebAPI.getThing);
+export const createThing = createAction('POST_THING', WebAPI.createThing);
+export const updateThing = createAction('POST_THING', WebAPI.updateThing);
+export const deleteThing = createAction('POST_THING', WebAPI.deleteThing);
+```
+
+(You'll probably notice how this could be simplified this even further using something like lodash's `mapValues()`.)
