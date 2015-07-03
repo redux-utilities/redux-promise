@@ -25,9 +25,9 @@ If it receives an Flux Standard Action whose `payload` is a promise, it will eit
 
 The middleware returns a promise to the caller so that it can wait for the operation to finish before continuing. This is especially useful for server-side rendering. If you find that a promise is not being returned, ensure that all middleware before it in the chain is also returning its `next()` call to the caller.
 
-## Async action creators
+## Example: Async action creators
 
-Because it supports FSA actions, you can use redux-promise in combination with [redux-fsa](https://github.com/acdlite/redux-fsa) to enable the use of async action creators, like in Flummox:
+Because it supports FSA actions, you can use redux-promise in combination with [redux-actions](https://github.com/acdlite/redux-actions) to enable the use of async action creators, like in Flummox:
 
 ```js
 createAction('FETCH_THING', async id => {
@@ -37,3 +37,6 @@ createAction('FETCH_THING', async id => {
 ```
 
 Unlike Flummox, it will not perform a dispatch at the beginning of the operation, only at the end. Use Redux's built-in [`thunkMiddleware`](https://github.com/gaearon/redux/blob/master/src/middleware/thunk.js) in combination with `redux-promise` to perform optimistic updates.
+
+
+## Example: Creating actions
