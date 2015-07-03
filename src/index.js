@@ -14,8 +14,8 @@ export default function promiseMiddleware(next) {
 
     return isPromise(action.payload)
       ? action.payload.then(
-          result => next({ ...action, payload: result, status: 'success' }),
-          error => next({ ...action, payload: error, status: 'error' })
+          result => next({ ...action, payload: result }),
+          error => next({ ...action, payload: error, error: true })
         )
       : next(action);
   };

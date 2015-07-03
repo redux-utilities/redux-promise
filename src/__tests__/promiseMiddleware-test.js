@@ -25,8 +25,7 @@ describe('promiseMiddleware', () => {
     expect(baseDispatch.calledOnce).to.be.true;
     expect(baseDispatch.firstCall.args[0]).to.deep.equal({
       type: 'ACTION_TYPE',
-      payload: foobar,
-      status: 'success'
+      payload: foobar
     });
 
     await dispatch({
@@ -38,7 +37,7 @@ describe('promiseMiddleware', () => {
     expect(baseDispatch.secondCall.args[0]).to.deep.equal({
       type: 'ACTION_TYPE',
       payload: err,
-      status: 'error'
+      error: true
     });
   });
 
