@@ -29,7 +29,7 @@ The middleware returns a promise to the caller so that it can wait for the opera
 
 Because it supports FSA actions, you can use redux-promise in combination with [redux-actions](https://github.com/acdlite/redux-actions).
 
-## Example: Async action creators
+### Example: Async action creators
 
 This works just like in Flummox:
 
@@ -43,7 +43,7 @@ createAction('FETCH_THING', async id => {
 Unlike Flummox, it will not perform a dispatch at the beginning of the operation, only at the end. Use Redux's built-in [`thunkMiddleware`](https://github.com/gaearon/redux/blob/master/src/middleware/thunk.js) in combination with `redux-promise` to perform optimistic updates.
 
 
-## Example: Integrating with a web API module
+### Example: Integrating with a web API module
 
 Say you have an API module that sends requests to a server. This is a common pattern in Flux apps. Assuming your module supports promises, it's really easy to create action creators that wrap around your API:
 
