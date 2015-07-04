@@ -52,8 +52,8 @@ import { WebAPI } from '../utils/WebAPI';
 
 export const getThing = createAction('GET_THING', WebAPI.getThing);
 export const createThing = createAction('POST_THING', WebAPI.createThing);
-export const updateThing = createAction('POST_THING', WebAPI.updateThing);
-export const deleteThing = createAction('POST_THING', WebAPI.deleteThing);
+export const updateThing = createAction('UPDATE_THING', WebAPI.updateThing);
+export const deleteThing = createAction('DELETE_THING', WebAPI.deleteThing);
 ```
 
 (You'll probably notice how this could be simplified this even further using something like lodash's `mapValues()`.)
