@@ -7,6 +7,11 @@
     "test": "make test",
     "prepublish": "make clean build"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acdlite/redux-promise.git"
+  },
+  "homepage": "https://github.com/acdlite/redux-promise",
   "keywords": [
     "redux",
     "promise",
