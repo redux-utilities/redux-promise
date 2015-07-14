@@ -4,8 +4,8 @@ function isPromise(val) {
   return val && typeof val.then === 'function';
 }
 
-export default function promiseMiddleware(next) {
-  return action => {
+export default function promiseMiddleware() {
+  return next => action => {
     if (!isFSA(action)) {
       return isPromise(action)
         ? action.then(next)

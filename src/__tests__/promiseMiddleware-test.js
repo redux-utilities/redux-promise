@@ -4,14 +4,16 @@ import { spy } from 'sinon';
 function noop() {}
 
 describe('promiseMiddleware', () => {
+  let store;
   let baseDispatch;
   let dispatch;
   let foobar;
   let err;
 
   beforeEach(() => {
+    store = { dispatch: spy(), getState: spy() };
     baseDispatch = spy();
-    dispatch = promiseMiddleware(baseDispatch);
+    dispatch = promiseMiddleware(store)(baseDispatch);
     foobar = { foo: 'bar' };
     err = new Error();
   });
