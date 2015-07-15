@@ -40,7 +40,7 @@ createAction('FETCH_THING', async id => {
 });
 ```
 
-Unlike Flummox, it will not perform a dispatch at the beginning of the operation, only at the end. Use Redux's built-in [`thunkMiddleware`](https://github.com/gaearon/redux/blob/master/src/middleware/thunk.js) in combination with `redux-promise` to perform optimistic updates.
+Unlike Flummox, it will not perform a dispatch at the beginning of the operation, only at the end. We're still looking into the [best way to deal with optimistic updates](https://github.com/acdlite/flux-standard-action/issues/7). If you have a suggestion, let me know.
 
 
 ### Example: Integrating with a web API module
