@@ -2,18 +2,26 @@ import promiseMiddleware from '../';
 import { spy } from 'sinon';
 
 function noop() {}
+const GIVE_ME_META = 'GIVE_ME_META';
+function metaMiddleware() {
+  return next => action =>
+    action.type === GIVE_ME_META
+      ? next({ ...action, meta: 'here you go' })
+      : next(action);
+}
 
 describe('promiseMiddleware', () => {
-  let store;
   let baseDispatch;
   let dispatch;
   let foobar;
   let err;
 
   beforeEach(() => {
-    store = { dispatch: spy(), getState: spy() };
     baseDispatch = spy();
-    dispatch = promiseMiddleware(store)(baseDispatch);
+    dispatch = function d(action) {
+      const methods = { dispatch: d, getState: noop };
+      return metaMiddleware()(promiseMiddleware(methods)(baseDispatch))(action);
+    };
     foobar = { foo: 'bar' };
     err = new Error();
   });
@@ -62,5 +70,14 @@ describe('promiseMiddleware', () => {
       type: 'ACTION_TYPE',
       payload: foobar
     });
+  });
+
+  it('starts async dispatches from beginning of middleware chain', async () => {
+    await dispatch(Promise.resolve({ type: GIVE_ME_META }));
+    dispatch({ type: GIVE_ME_META });
+    expect(baseDispatch.args.map(args => args[0].meta)).to.eql([
+      'here you go',
+      'here you go'
+    ]);
   });
 });
