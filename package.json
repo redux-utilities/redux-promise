@@ -34,6 +34,7 @@
     "sinon": "^1.15.4"
   },
   "dependencies": {
-    "flux-standard-action": "0.6.0"
+    "flux-standard-action": "0.6.0",
+    "lodash": "^3.10.0"
   }
 }
