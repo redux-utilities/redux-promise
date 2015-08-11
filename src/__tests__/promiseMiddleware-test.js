@@ -49,6 +49,11 @@ describe('promiseMiddleware', () => {
       payload: err,
       error: true
     });
+
+    await expect(dispatch({
+      type: 'ACTION_TYPE',
+      payload: Promise.reject(err)
+    })).to.eventually.be.rejectedWith(err);
   });
 
   it('handles promises', async () => {
