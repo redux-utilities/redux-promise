@@ -20,8 +20,8 @@ The default export is a middleware function. If it receives a promise, it will d
 
 If it receives an Flux Standard Action whose `payload` is a promise, it will either
 
-- dispatch a copy of the action with the resolved value of the promise, and set `status` to `success`.
-- dispatch a copy of the action with the rejected value of the promise, and set `status` to `error`.
+- dispatch a copy of the action with the resolved value of the promise.
+- dispatch a copy of the action with the rejected value of the promise, and set `error` to `true`.
 
 The middleware returns a promise to the caller so that it can wait for the operation to finish before continuing. This is especially useful for server-side rendering. If you find that a promise is not being returned, ensure that all middleware before it in the chain is also returning its `next()` call to the caller.
 
