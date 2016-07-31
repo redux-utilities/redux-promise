@@ -12,7 +12,7 @@ export default function promiseMiddleware({ dispatch }) {
         : next(action);
     }
 
-    return isPromise(action.payload)
+    return isPromise(action.payload) && !action.error
       ? action.payload.then(
           result => dispatch({ ...action, payload: result }),
           error => {
