@@ -85,4 +85,44 @@ describe('promiseMiddleware', () => {
       'here you go'
     ]);
   });
+
+  it('handles promises that reject with itself', async () => {
+    // Thenable that synchronously rejects with itself (like jQiery.ajax in jQuery 2)
+    const selfRejectingSync = {
+      then(_, eb) {
+        return Promise.resolve(eb(selfRejectingSync));
+      }
+    };
+
+    await expect(dispatch({
+      type: 'ACTION_TYPE',
+      payload: selfRejectingSync
+    })).to.eventually.be.rejectedWith(selfRejectingSync);
+
+    expect(baseDispatch.calledOnce).to.be.true;
+    expect(baseDispatch.firstCall.args[0]).to.deep.equal({
+      type: 'ACTION_TYPE',
+      payload: selfRejectingSync,
+      error: true
+    });
+
+    // Promise that rejects with itself (like jQiery.ajax in jQuery 3)
+    const selfRejectingAsync = new Promise((_, reject) => {
+      setTimeout(() => {
+        reject(selfRejectingAsync);
+      }, 1);
+    });
+
+    await expect(dispatch({
+      type: 'ACTION_TYPE',
+      payload: selfRejectingAsync
+    })).to.eventually.be.rejectedWith(selfRejectingAsync);
+
+    expect(baseDispatch.calledTwice).to.be.true;
+    expect(baseDispatch.secondCall.args[0]).to.deep.equal({
+      type: 'ACTION_TYPE',
+      payload: selfRejectingAsync,
+      error: true
+    });
+  });
 });
