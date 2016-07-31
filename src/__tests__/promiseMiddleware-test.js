@@ -87,7 +87,7 @@ describe('promiseMiddleware', () => {
   });
 
   it('handles promises that reject with itself', async () => {
-    // Thenable that synchronously rejects with itself (like jQiery.ajax in jQuery 2)
+    // Thenable that synchronously rejects with itself (like jqXHR in jQuery 2)
     const selfRejectingSync = {
       then(_, eb) {
         return Promise.resolve(eb(selfRejectingSync));
@@ -106,7 +106,7 @@ describe('promiseMiddleware', () => {
       error: true
     });
 
-    // Promise that rejects with itself (like jQiery.ajax in jQuery 3)
+    // Promise that rejects with itself (like jqXHR in jQuery 3)
     const selfRejectingAsync = new Promise((_, reject) => {
       setTimeout(() => {
         reject(selfRejectingAsync);
