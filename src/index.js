@@ -17,7 +17,7 @@ export default function promiseMiddleware({ dispatch }) {
           result => dispatch({ ...action, payload: result }),
           error => {
             dispatch({ ...action, payload: error, error: true });
-            return Promise.reject(error);
+            throw error;
           }
         )
       : next(action);
