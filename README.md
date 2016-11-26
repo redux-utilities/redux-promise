@@ -12,8 +12,19 @@ npm install --save redux-promise
 
 ## Usage
 
+To enable redux-promise use `applyMiddleware()`:
+
 ```js
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import promiseMiddleware from 'redux-promise';
+import * as reducers from './reducers/index';
+
+const reducer = combineReducers(reducers);
+
+// create a store that has redux-promise middleware enabled
+const createStoreWithMiddleware = applyMiddleware(promiseMiddleware)(createStore);
+
+const store = createStoreWithMiddleware(reducer);
 ```
 
 The default export is a middleware function. If it receives a promise, it will dispatch the resolved value of the promise. It will not dispatch anything if the promise rejects.
