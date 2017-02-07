@@ -5,8 +5,8 @@ function isPromise(val) {
 }
 
 function isFetchRequest(request) {
-    if (!fetch) return request;
-    return request.bodyUsed === undefined ? request : request.json();
+  if (!global.fetch) return request;
+  return request.bodyUsed === undefined ? request : request.json();
 }
 
 export default function promiseMiddleware({ dispatch }) {
@@ -19,7 +19,7 @@ export default function promiseMiddleware({ dispatch }) {
 
     return isPromise(action.payload)
       ? action.payload.then(
-          result => dispatch({ ...action, payload: isFetchRequest(request) }),
+          result => dispatch({ ...action, payload: isFetchRequest(result) }),
           error => {
             dispatch({ ...action, payload: error, error: true });
             return Promise.reject(error);
