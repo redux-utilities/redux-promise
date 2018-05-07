@@ -3,15 +3,21 @@
   "version": "0.5.3",
   "description": "FSA-compliant promise middleware for Redux.",
   "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
-    "test": "make test",
-    "prepublish": "make clean build"
+    "build": "babel src --out-dir lib",
+    "precommit": "pretty-quick --staged",
+    "lint": "xo",
+    "test": "jest",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/acdlite/redux-promise.git"
+    "url": "https://github.com/redux-utilities/redux-promise.git"
   },
-  "homepage": "https://github.com/acdlite/redux-promise",
+  "homepage": "https://github.com/redux-utilities/redux-promise",
   "keywords": [
     "redux",
     "promise",
@@ -22,18 +28,45 @@
   ],
   "author": "Andrew Clark <acdlite@me.com>",
   "license": "MIT",
-  "devDependencies": {
-    "babel": "^5.6.14",
-    "babel-core": "^5.6.15",
-    "babel-eslint": "^5.0.0",
-    "chai": "^3.0.0",
-    "chai-as-promised": "^5.1.0",
-    "eslint": "^0.24.0",
-    "eslint-config-airbnb": "0.0.6",
-    "mocha": "^2.2.5",
-    "sinon": "^1.15.4"
-  },
   "dependencies": {
-    "flux-standard-action": "^0.6.1"
+    "flux-standard-action": "^2.0.3",
+    "is-promise": "^2.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.46",
+    "@babel/core": "^7.0.0-beta.46",
+    "@babel/preset-env": "^7.0.0-beta.46",
+    "babel-core": "^7.0.0-0",
+    "babel-jest": "^22.4.3",
+    "eslint-config-jest-files": "^0.1.3",
+    "eslint-config-unicorn-camelcase": "^0.1.1",
+    "husky": "^0.14.3",
+    "jest": "^22.4.3",
+    "prettier": "^1.12.1",
+    "pretty-quick": "^1.4.1",
+    "xo": "^0.21.0"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "bracketSpacing": true
+  },
+  "xo": {
+    "prettier": true,
+    "space": true,
+    "extends": [
+      "jest-files",
+      "unicorn-camelcase"
+    ]
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
   }
 }

@@ -1,8 +1,9 @@
-import promiseMiddleware from '../';
-import { spy } from 'sinon';
+import promiseMiddleware from '../src';
 
 function noop() {}
+
 const GIVE_ME_META = 'GIVE_ME_META';
+
 function metaMiddleware() {
   return next => action =>
     action.type === GIVE_ME_META
@@ -17,9 +18,9 @@ describe('promiseMiddleware', () => {
   let err;
 
   beforeEach(() => {
-    baseDispatch = spy();
-    dispatch = function d(action) {
-      const methods = { dispatch: d, getState: noop };
+    baseDispatch = jest.fn();
+    dispatch = function dispatch(action) {
+      const methods = { dispatch, getState: noop };
       return metaMiddleware()(promiseMiddleware(methods)(baseDispatch))(action);
     };
     foobar = { foo: 'bar' };
@@ -32,8 +33,8 @@ describe('promiseMiddleware', () => {
       payload: Promise.resolve(foobar)
     });
 
-    expect(baseDispatch.calledOnce).to.be.true;
-    expect(baseDispatch.firstCall.args[0]).to.deep.equal({
+    expect(baseDispatch).toHaveBeenCalledTimes(1);
+    expect(baseDispatch.mock.calls[0][0]).toEqual({
       type: 'ACTION_TYPE',
       payload: foobar
     });
@@ -43,35 +44,42 @@ describe('promiseMiddleware', () => {
       payload: Promise.reject(err)
     }).catch(noop);
 
-    expect(baseDispatch.calledTwice).to.be.true;
-    expect(baseDispatch.secondCall.args[0]).to.deep.equal({
+    expect(baseDispatch).toHaveBeenCalledTimes(2);
+    expect(baseDispatch.mock.calls[1][0]).toEqual({
       type: 'ACTION_TYPE',
       payload: err,
       error: true
     });
 
-    await expect(dispatch({
-      type: 'ACTION_TYPE',
-      payload: Promise.reject(err)
-    })).to.eventually.be.rejectedWith(err);
+    await expect(
+      dispatch({
+        type: 'ACTION_TYPE',
+        payload: Promise.reject(err).catch(noop)
+      })
+    ).rejects;
   });
 
   it('handles promises', async () => {
     await dispatch(Promise.resolve(foobar));
-    expect(baseDispatch.calledOnce).to.be.true;
-    expect(baseDispatch.firstCall.args[0]).to.equal(foobar);
 
-    await expect(dispatch(Promise.reject(err))).to.eventually.be.rejectedWith(err);
+    expect(baseDispatch).toHaveBeenCalledTimes(1);
+    expect(baseDispatch.mock.calls[0][0]).toEqual(foobar);
+
+    return dispatch(Promise.reject(err)).catch(error =>
+      expect(error).toBe(err)
+    );
   });
 
-  it('ignores non-promises', async () => {
+  it('ignores non-promises', () => {
     dispatch(foobar);
-    expect(baseDispatch.calledOnce).to.be.true;
-    expect(baseDispatch.firstCall.args[0]).to.equal(foobar);
+
+    expect(baseDispatch).toHaveBeenCalledTimes(1);
+    expect(baseDispatch.mock.calls[0][0]).toEqual(foobar);
 
     dispatch({ type: 'ACTION_TYPE', payload: foobar });
-    expect(baseDispatch.calledTwice).to.be.true;
-    expect(baseDispatch.secondCall.args[0]).to.deep.equal({
+
+    expect(baseDispatch).toHaveBeenCalledTimes(2);
+    expect(baseDispatch.mock.calls[1][0]).toEqual({
       type: 'ACTION_TYPE',
       payload: foobar
     });
@@ -80,7 +88,8 @@ describe('promiseMiddleware', () => {
   it('starts async dispatches from beginning of middleware chain', async () => {
     await dispatch(Promise.resolve({ type: GIVE_ME_META }));
     dispatch({ type: GIVE_ME_META });
-    expect(baseDispatch.args.map(args => args[0].meta)).to.eql([
+
+    expect(baseDispatch.mock.calls.map(args => args[0].meta)).toEqual([
       'here you go',
       'here you go'
     ]);
