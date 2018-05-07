@@ -1,8 +1,9 @@
 # redux-promise
 
-[![build status](https://img.shields.io/travis/redux-utilities/redux-promise/master.svg?style=flat-square)](https://travis-ci.org/redux-utilities/redux-promise)
+[![build status](https://img.shields.io/travis/redux-utilities/redux-promise/master.svg)](https://travis-ci.org/redux-utilities/redux-promise)
 [![codecov](https://codecov.io/gh/redux-utilities/redux-promise/branch/master/graph/badge.svg)](https://codecov.io/gh/redux-utilities/redux-promise)
-[![npm version](https://img.shields.io/npm/v/redux-promise.svg?style=flat-square)](https://www.npmjs.com/package/redux-promise)
+[![npm version](https://img.shields.io/npm/v/redux-promise.svg)](https://www.npmjs.com/package/redux-promise)
+[![npm monthly downloads](https://img.shields.io/npm/dm/redux-promise.svg)](https://www.npmjs.com/package/redux-promise)
 
 [FSA](https://github.com/redux-utilities/flux-standard-action)-compliant promise [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md) for Redux.
 
