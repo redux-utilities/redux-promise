@@ -1,10 +1,10 @@
-redux-promise
-=============
+# redux-promise
 
-[![build status](https://img.shields.io/travis/acdlite/redux-promise/master.svg?style=flat-square)](https://travis-ci.org/acdlite/redux-promise)
+[![build status](https://img.shields.io/travis/redux-utilities/redux-promise/master.svg?style=flat-square)](https://travis-ci.org/redux-utilities/redux-promise)
+[![codecov](https://codecov.io/gh/redux-utilities/redux-promise/branch/master/graph/badge.svg)](https://codecov.io/gh/redux-utilities/redux-promise)
 [![npm version](https://img.shields.io/npm/v/redux-promise.svg?style=flat-square)](https://www.npmjs.com/package/redux-promise)
 
-[FSA](https://github.com/acdlite/flux-standard-action)-compliant promise [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md) for Redux.
+[FSA](https://github.com/redux-utilities/flux-standard-action)-compliant promise [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md) for Redux.
 
 ```js
 npm install --save redux-promise
@@ -20,14 +20,14 @@ The default export is a middleware function. If it receives a promise, it will d
 
 If it receives an Flux Standard Action whose `payload` is a promise, it will either
 
-- dispatch a copy of the action with the resolved value of the promise, and set `status` to `success`.
-- dispatch a copy of the action with the rejected value of the promise, and set `status` to `error`.
+* dispatch a copy of the action with the resolved value of the promise, and set `status` to `success`.
+* dispatch a copy of the action with the rejected value of the promise, and set `status` to `error`.
 
 The middleware returns a promise to the caller so that it can wait for the operation to finish before continuing. This is especially useful for server-side rendering. If you find that a promise is not being returned, ensure that all middleware before it in the chain is also returning its `next()` call to the caller.
 
 ## Using in combination with redux-actions
 
-Because it supports FSA actions, you can use redux-promise in combination with [redux-actions](https://github.com/acdlite/redux-actions).
+Because it supports FSA actions, you can use redux-promise in combination with [redux-actions](https://github.com/redux-utilities/redux-actions).
 
 ### Example: Async action creators
 
@@ -40,8 +40,7 @@ createAction('FETCH_THING', async id => {
 });
 ```
 
-Unlike Flummox, it will not perform a dispatch at the beginning of the operation, only at the end. We're still looking into the [best way to deal with optimistic updates](https://github.com/acdlite/flux-standard-action/issues/7). If you have a suggestion, let me know.
-
+Unlike Flummox, it will not perform a dispatch at the beginning of the operation, only at the end. We're still looking into the [best way to deal with optimistic updates](https://github.com/redux-utilities/flux-standard-action/issues/7). If you have a suggestion, let me know.
 
 ### Example: Integrating with a web API module
 
