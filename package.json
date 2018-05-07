@@ -44,7 +44,6 @@
     "jest": "^22.4.3",
     "prettier": "^1.12.1",
     "pretty-quick": "^1.4.1",
-    "regenerator-runtime": "^0.11.1",
     "xo": "^0.21.0"
   },
   "prettier": {
