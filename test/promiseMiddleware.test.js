@@ -72,6 +72,7 @@ describe('promiseMiddleware', () => {
 
   it('ignores non-promises', () => {
     dispatch(foobar);
+
     expect(baseDispatch).toHaveBeenCalledTimes(1);
     expect(baseDispatch.mock.calls[0][0]).toEqual(foobar);
 
@@ -86,7 +87,6 @@ describe('promiseMiddleware', () => {
 
   it('starts async dispatches from beginning of middleware chain', async () => {
     await dispatch(Promise.resolve({ type: GIVE_ME_META }));
-
     dispatch({ type: GIVE_ME_META });
 
     expect(baseDispatch.mock.calls.map(args => args[0].meta)).toEqual([
