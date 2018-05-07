@@ -11,7 +11,6 @@
     "precommit": "pretty-quick --staged",
     "lint": "xo",
     "test": "jest",
-    "posttest": "npm run lint",
     "prepublishOnly": "npm run build"
   },
   "repository": {
@@ -30,7 +29,8 @@
   "author": "Andrew Clark <acdlite@me.com>",
   "license": "MIT",
   "dependencies": {
-    "flux-standard-action": "^2.0.2"
+    "flux-standard-action": "^2.0.2",
+    "is-promise": "^2.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.46",
@@ -49,8 +49,7 @@
   },
   "prettier": {
     "singleQuote": true,
-    "bracketSpacing": true,
-    "trailingComma": "none"
+    "bracketSpacing": true
   },
   "xo": {
     "prettier": true,
