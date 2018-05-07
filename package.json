@@ -15,9 +15,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/acdlite/redux-promise.git"
+    "url": "https://github.com/redux-utilities/redux-promise.git"
   },
-  "homepage": "https://github.com/acdlite/redux-promise",
+  "homepage": "https://github.com/redux-utilities/redux-promise",
   "keywords": [
     "redux",
     "promise",
