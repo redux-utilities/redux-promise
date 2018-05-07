@@ -35,7 +35,7 @@ Because it supports FSA actions, you can use redux-promise in combination with [
 This works just like in Flummox:
 
 ```js
-createAction('FETCH_THING', async id => {
+createAction('FETCH_THING', async function(id) {
   const result = await somePromise;
   return result.someValue;
 });
