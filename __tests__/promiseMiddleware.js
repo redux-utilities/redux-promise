@@ -17,8 +17,8 @@ describe('promiseMiddleware', () => {
 
   beforeEach(() => {
     baseDispatch = jest.fn();
-    dispatch = function d(action) {
-      const methods = { dispatch: d, getState: noop };
+    dispatch = function dispatch(action) {
+      const methods = { dispatch, getState: noop };
       return metaMiddleware()(promiseMiddleware(methods)(baseDispatch))(action);
     };
     foobar = { foo: 'bar' };
@@ -52,7 +52,7 @@ describe('promiseMiddleware', () => {
     await expect(
       dispatch({
         type: 'ACTION_TYPE',
-        payload: Promise.reject(err)
+        payload: Promise.reject(err).catch(noop)
       })
     ).rejects;
   });
@@ -62,7 +62,7 @@ describe('promiseMiddleware', () => {
 
     expect(baseDispatch).toHaveBeenCalledTimes(1);
     expect(baseDispatch.mock.calls[0][0]).toEqual(foobar);
-    await expect(dispatch(Promise.reject(err))).rejects;
+    await expect(dispatch(Promise.reject(err).catch(noop))).rejects;
   });
 
   it('ignores non-promises', async () => {
