@@ -5,7 +5,7 @@
 [![npm version](https://img.shields.io/npm/v/redux-promise.svg)](https://www.npmjs.com/package/redux-promise)
 [![npm monthly downloads](https://img.shields.io/npm/dm/redux-promise.svg)](https://www.npmjs.com/package/redux-promise)
 
-[FSA](https://github.com/redux-utilities/flux-standard-action)-compliant promise [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md) for Redux.
+[FSA](https://github.com/redux-utilities/flux-standard-action)-compliant promise [middleware](https://redux.js.org/advanced/middleware) for Redux.
 
 ```js
 npm install --save redux-promise
