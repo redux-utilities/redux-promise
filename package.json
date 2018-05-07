@@ -29,7 +29,7 @@
   "author": "Andrew Clark <acdlite@me.com>",
   "license": "MIT",
   "dependencies": {
-    "flux-standard-action": "^2.0.2",
+    "flux-standard-action": "^2.0.3",
     "is-promise": "^2.1.0"
   },
   "devDependencies": {
