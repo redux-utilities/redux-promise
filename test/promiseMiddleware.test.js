@@ -1,7 +1,9 @@
 import promiseMiddleware from '../src';
 
 function noop() {}
+
 const GIVE_ME_META = 'GIVE_ME_META';
+
 function metaMiddleware() {
   return next => action =>
     action.type === GIVE_ME_META
@@ -62,10 +64,13 @@ describe('promiseMiddleware', () => {
 
     expect(baseDispatch).toHaveBeenCalledTimes(1);
     expect(baseDispatch.mock.calls[0][0]).toEqual(foobar);
-    await expect(dispatch(Promise.reject(err).catch(noop))).rejects;
+
+    return dispatch(Promise.reject(err)).catch(error =>
+      expect(error).toBe(err)
+    );
   });
 
-  it('ignores non-promises', async () => {
+  it('ignores non-promises', () => {
     dispatch(foobar);
     expect(baseDispatch).toHaveBeenCalledTimes(1);
     expect(baseDispatch.mock.calls[0][0]).toEqual(foobar);
