@@ -1,15 +1,9 @@
 import { isFSA } from 'flux-standard-action';
 
-function isPromise(val) {
-  return val && typeof val.then === 'function';
-}
-
 export default function promiseMiddleware({ dispatch }) {
   return next => action => {
     if (!isFSA(action)) {
-      return isPromise(action)
-        ? action.then(dispatch)
-        : next(action);
+      return isPromise(action) ? action.then(dispatch) : next(action);
     }
 
     return isPromise(action.payload)
@@ -22,4 +16,13 @@ export default function promiseMiddleware({ dispatch }) {
         )
       : next(action);
   };
+}
+
+// 'borrowed' from: https://github.com/then/is-promise/commit/ed0eaa4dec17597f0dae892a0472a9b7f459320d
+function isPromise(obj) {
+  return (
+    !!obj &&
+    (typeof obj === 'object' || typeof obj === 'function') &&
+    typeof obj.then === 'function'
+  );
 }

@@ -4,8 +4,8 @@
   "description": "FSA-compliant promise middleware for Redux.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "make test",
-    "prepublish": "make clean build"
+    "test": "jest",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -22,18 +22,20 @@
   ],
   "author": "Andrew Clark <acdlite@me.com>",
   "license": "MIT",
-  "devDependencies": {
-    "babel": "^5.6.14",
-    "babel-core": "^5.6.15",
-    "babel-eslint": "^5.0.0",
-    "chai": "^3.0.0",
-    "chai-as-promised": "^5.1.0",
-    "eslint": "^0.24.0",
-    "eslint-config-airbnb": "0.0.6",
-    "mocha": "^2.2.5",
-    "sinon": "^1.15.4"
-  },
   "dependencies": {
-    "flux-standard-action": "^0.6.1"
+    "flux-standard-action": "^2.0.2"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.6.1",
+    "husky": "^0.14.3",
+    "jest": "^22.4.3",
+    "prettier": "^1.12.1",
+    "pretty-quick": "^1.4.1",
+    "xo": "^0.21.0"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "trailingComma": "none"
   }
 }
