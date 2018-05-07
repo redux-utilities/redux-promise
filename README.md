@@ -56,4 +56,4 @@ export const updateThing = createAction('UPDATE_THING', WebAPI.updateThing);
 export const deleteThing = createAction('DELETE_THING', WebAPI.deleteThing);
 ```
 
-(You'll probably notice how this could be simplified this even further using something like lodash's `mapValues()`.)
+(You'll probably notice how this could be simplified even further using something like lodash's `mapValues()`.)
