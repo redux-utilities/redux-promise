@@ -1,6 +1,6 @@
 {
   "name": "redux-promise",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "description": "FSA-compliant promise middleware for Redux.",
   "main": "lib/index.js",
   "files": [
