@@ -8,7 +8,7 @@
 [FSA](https://github.com/redux-utilities/flux-standard-action)-compliant promise [middleware](https://redux.js.org/advanced/middleware) for Redux.
 
 ```js
-npm install --save redux-promise
+npm install redux-promise
 ```
 
 ## Usage
